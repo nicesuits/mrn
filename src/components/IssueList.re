@@ -4,6 +4,11 @@ let make = _children => {
   ...component,
   render: _self =>
     <div>
-      {ReasonReact.string("This is a placeholder for the issue list.")}
+      <h1> {ReasonReact.string("Issue Tracker")} </h1>
+      <IssueFilter />
+      <hr />
+      <IssueTable />
+      <hr />
+      <IssueAdd />
     </div>,
 };
