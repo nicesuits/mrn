@@ -4,6 +4,6 @@ type issue = {
   owner: string,
   created: string,
   effort: int,
-  completionDate: string,
+  completedDate: string,
   title: string,
 };
