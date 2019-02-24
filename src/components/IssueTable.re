@@ -5,20 +5,16 @@ let component = ReasonReact.statelessComponent("IssueTable");
 let make = (~issues, _children) => {
   ...component,
   render: _self => {
-    <table>
+    <table className="bordered-table">
       <thead>
         <tr>
-          <th className="borderedStyle"> {ReasonReact.string("Id")} </th>
-          <th className="borderedStyle"> {ReasonReact.string("Status")} </th>
-          <th className="borderedStyle"> {ReasonReact.string("Owner")} </th>
-          <th className="borderedStyle">
-            {ReasonReact.string("Created On")}
-          </th>
-          <th className="borderedStyle"> {ReasonReact.string("Effort")} </th>
-          <th className="borderedStyle">
-            {ReasonReact.string("Completed On")}
-          </th>
-          <th className="borderedStyle"> {ReasonReact.string("Title")} </th>
+          <th> {ReasonReact.string("Id")} </th>
+          <th> {ReasonReact.string("Status")} </th>
+          <th> {ReasonReact.string("Owner")} </th>
+          <th> {ReasonReact.string("Created On")} </th>
+          <th> {ReasonReact.string("Effort")} </th>
+          <th> {ReasonReact.string("Completed On")} </th>
+          <th> {ReasonReact.string("Title")} </th>
         </tr>
       </thead>
       <tbody>
