@@ -2,33 +2,8 @@
 
 let component = ReasonReact.statelessComponent("IssueTable");
 
-// type state = {issues: list(IssueType.issue)};
-
 let make = (~issues, _children) => {
   ...component,
-  // initialState: () => {
-  //   issues: [
-  //     {
-  //       id: 1,
-  //       status: "Open",
-  //       owner: "Ravan",
-  //       created: "2016-08-15",
-  //       effort: 5,
-  //       completedDate: "undefined",
-  //       title: "Error in console when clicking Add",
-  //     },
-  //     {
-  //       id: 2,
-  //       status: "Assigned",
-  //       owner: "Eddie",
-  //       created: "2016-08-16",
-  //       effort: 14,
-  //       completedDate: "2016-08-30",
-  //       title: "Missing bottom border on panel",
-  //     },
-  //   ],
-  // },
-  // reducer: ((), _) => ReasonReact.NoUpdate,
   render: _self => {
     <table>
       <thead>
