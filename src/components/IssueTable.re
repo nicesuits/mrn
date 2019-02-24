@@ -1,67 +1,35 @@
 [%bs.raw {|require('./IssueTable.css')|}];
 
-let component = ReasonReact.reducerComponent("IssueTable");
+let component = ReasonReact.statelessComponent("IssueTable");
 
-type state = {issues: list(IssueType.issue)};
+// type state = {issues: list(IssueType.issue)};
 
-// let issuesData: list(IssueType.issue) = [
-//   {
-//     id: 1,
-//     status: "Open",
-//     owner: "Ravan",
-//     created: "2016-08-15",
-//     effort: 5,
-//     completedDate: "undefined",
-//     title: "Error in console when clicking Add",
-//   },
-//   {
-//     id: 2,
-//     status: "Assigned",
-//     owner: "Eddie",
-//     created: "2016-08-16",
-//     effort: 14,
-//     completedDate: "2016-08-30",
-//     title: "Missing bottom border on panel",
-//   },
-// ];
-
-let make = _children => {
+let make = (~issues, _children) => {
   ...component,
-  initialState: () => {
-    issues: [
-      {
-        id: 1,
-        status: "Open",
-        owner: "Ravan",
-        created: "2016-08-15",
-        effort: 5,
-        completedDate: "undefined",
-        title: "Error in console when clicking Add",
-      },
-      {
-        id: 2,
-        status: "Assigned",
-        owner: "Eddie",
-        created: "2016-08-16",
-        effort: 14,
-        completedDate: "2016-08-30",
-        title: "Missing bottom border on panel",
-      },
-    ],
-  },
-  reducer: ((), _) => ReasonReact.NoUpdate,
-  render: self => {
-    let issues = self.state;
-    // let issueRows =
-    // ReasonReact.array(
-    //   Array.of_list(
-    //     List.map(
-    //       (issue: IssueType.issue) =>
-    //         <IssueRow key={string_of_int(issue.id)} />,
-    //       issuesData,
-    //     ),
-    //   ),
-    // );
+  // initialState: () => {
+  //   issues: [
+  //     {
+  //       id: 1,
+  //       status: "Open",
+  //       owner: "Ravan",
+  //       created: "2016-08-15",
+  //       effort: 5,
+  //       completedDate: "undefined",
+  //       title: "Error in console when clicking Add",
+  //     },
+  //     {
+  //       id: 2,
+  //       status: "Assigned",
+  //       owner: "Eddie",
+  //       created: "2016-08-16",
+  //       effort: 14,
+  //       completedDate: "2016-08-30",
+  //       title: "Missing bottom border on panel",
+  //     },
+  //   ],
+  // },
+  // reducer: ((), _) => ReasonReact.NoUpdate,
+  render: _self => {
     <table>
       <thead>
         <tr>
