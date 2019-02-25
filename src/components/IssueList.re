@@ -20,13 +20,23 @@ let issuesData: list(IssueType.issue) = [
 ];
 
 type state = {issues: list(IssueType.issue)};
+type action =
+  | InitialLoad(list(IssueType.issue));
 
 let component = ReasonReact.reducerComponent("IssueList");
 
 let make = _children => {
   ...component,
-  initialState: () => {issues: issuesData},
-  reducer: ((), _) => ReasonReact.NoUpdate,
+  initialState: () => {issues: []},
+  reducer: action =>
+    switch (action) {
+    | InitialLoad(passedIssues) => (
+        state => ReasonReact.Update({...state, issues: passedIssues})
+      )
+    },
+  didMount: self => {
+    self.send(InitialLoad(issuesData));
+  },
   render: self => {
     let {issues} = self.state;
     <div>
