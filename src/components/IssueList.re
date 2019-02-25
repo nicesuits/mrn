@@ -1,5 +1,3 @@
-let component = ReasonReact.statelessComponent("IssueList");
-
 let issuesData: list(IssueType.issue) = [
   {
     id: 1,
@@ -21,15 +19,23 @@ let issuesData: list(IssueType.issue) = [
   },
 ];
 
+type state = {issues: list(IssueType.issue)};
+
+let component = ReasonReact.reducerComponent("IssueList");
+
 let make = _children => {
   ...component,
-  render: _self =>
+  initialState: () => {issues: issuesData},
+  reducer: ((), _) => ReasonReact.NoUpdate,
+  render: self => {
+    let {issues} = self.state;
     <div>
       <h1> {ReasonReact.string("Issue Tracker")} </h1>
       <IssueFilter />
       <hr />
-      <IssueTable issues=issuesData />
+      <IssueTable issues />
       <hr />
       <IssueAdd />
-    </div>,
+    </div>;
+  },
 };
