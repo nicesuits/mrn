@@ -21,8 +21,27 @@ let issuesData: list(IssueType.issue) = [
 
 type state = {issues: list(IssueType.issue)};
 type action =
-  | InitialLoad(list(IssueType.issue));
+  | InitialLoad(list(IssueType.issue))
+  | AddIssue(IssueType.issue);
 
+let newIssue = text => {
+  let newID =
+    issuesData.length
+    + 1({
+        id: newID,
+        status: "Open",
+        owner: text.owner,
+        created: Js.Date.make(),
+        effort: 5,
+        completedDate: "",
+        title: text.title,
+      });
+  ();
+};
+let valueFromEvent = (e): string =>
+  {
+    e |> ReactEventRe.Form.target |> ReactDOMRe.domElementToObj;
+  }##value;
 let component = ReasonReact.reducerComponent("IssueList");
 
 let make = _children => {
@@ -33,6 +52,7 @@ let make = _children => {
     | InitialLoad(passedIssues) => (
         state => ReasonReact.Update({...state, issues: passedIssues})
       )
+    | AddIssue(text) => ReasonReact.Update({})
     },
   didMount: self => {
     self.send(InitialLoad(issuesData));
