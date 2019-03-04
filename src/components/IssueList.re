@@ -23,33 +23,52 @@ type state = {issues: list(IssueType.issue)};
 type action =
   | InitialLoad(list(IssueType.issue));
 
-let valueFromEvent = (e): string =>
-  {
-    e |> ReactEventRe.Form.target |> ReactDOMRe.domElementToObj;
-  }##value;
+let valueFromEvent = event => {
+  event->ReactEvent.Form.target##value;
+};
+
 let component = ReasonReact.reducerComponent("IssueList");
 
 let make = _children => {
-  ...component,
-  initialState: () => {issues: []},
-  reducer: action =>
-    switch (action) {
-    | InitialLoad(passedIssues) => (
-        state => ReasonReact.Update({...state, issues: passedIssues})
-      )
+  {
+    let createIssue = state => {
+      let newID: int = List.length(state.issues) + 1;
+      let newIssue: IssueType.issue = {
+        id: newID,
+        status: "Open",
+        owner: "owner",
+        created: Js.Date.toDateString(Js.Date.make()),
+        effort: 5,
+        completedDate: "",
+        title: "title",
+      };
+      let newList = [newIssue, ...state.issues];
+      ReasonReact.Update({issues: newList});
+    };
+    ();
+  };
+  {
+    ...component,
+    initialState: () => {issues: []},
+    reducer: action =>
+      switch (action) {
+      | InitialLoad(passedIssues) => (
+          state => ReasonReact.Update({...state, issues: passedIssues})
+        )
+      },
+    didMount: self => {
+      self.send(InitialLoad(issuesData));
     },
-  didMount: self => {
-    self.send(InitialLoad(issuesData));
-  },
-  render: self => {
-    let {issues} = self.state;
-    <div>
-      <h1> {ReasonReact.string("Issue Tracker")} </h1>
-      <IssueFilter />
-      <hr />
-      <IssueTable issues />
-      <hr />
-      <IssueAdd />
-    </div>;
-  },
+    render: self => {
+      let {issues} = self.state;
+      <div>
+        <h1> {ReasonReact.string("Issue Tracker")} </h1>
+        <IssueFilter />
+        <hr />
+        <IssueTable issues />
+        <hr />
+        <IssueAdd />
+      </div>;
+    },
+  };
 };
